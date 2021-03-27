@@ -1,7 +1,9 @@
 package com.gorbatenko.mongo;
 
+import com.gorbatenko.mongo.model.Address;
 import com.gorbatenko.mongo.model.Car;
 import com.gorbatenko.mongo.model.User;
+import com.gorbatenko.mongo.repository.AddressRepository;
 import com.gorbatenko.mongo.repository.CarRepository;
 import com.gorbatenko.mongo.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
@@ -18,8 +20,10 @@ public class MongoApplication {
 		ApplicationContext ctx = SpringApplication.run(MongoApplication.class, args);
 
 		CarRepository carRepository = ctx.getBean(CarRepository.class);
+		AddressRepository addressRepository = ctx.getBean(AddressRepository.class);
 		UserRepository userRepository = ctx.getBean(UserRepository.class);
 
+		addressRepository.deleteAll();;
 		carRepository.deleteAll();
 		userRepository.deleteAll();
 
@@ -35,7 +39,10 @@ public class MongoApplication {
 
 		carRepository.saveAll(cars);
 
-		User user = new User("Vladimir", 40, cars);
+		Address address = new Address("Odessa", "Pushkinskaya 23");
+		addressRepository.save(address);
+
+		User user = new User("Vladimir", 40, address, cars);
 
 		userRepository.save(user);
 

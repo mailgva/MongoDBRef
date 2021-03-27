@@ -20,6 +20,9 @@ public class User {
     private int age;
 
     @DBRef
+    private Address address;
+
+    @DBRef
     /* Document will contain only DBRefs with Car.id on collection "cars". Like next:
     * {
         "_id" : ObjectId("605e52a8ffb7131e463bef23"),
@@ -37,9 +40,10 @@ public class User {
     * */
     List<Car> cars;
 
-    public User(String name, int age, List<Car> cars) {
+    public User(String name, int age, Address address, List<Car> cars) {
         this.name = name;
         this.age = age;
+        this.address = address;
         this.cars = cars;
     }
 }
